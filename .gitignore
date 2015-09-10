@@ -1,5 +1,5 @@
 client_secret.json
 pip-selfcheck.json
-bin/
-include/
-lib/
+Flask_App/bin/
+Flask_App/include/
+Flask_App/lib/
