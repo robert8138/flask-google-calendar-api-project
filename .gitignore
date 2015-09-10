@@ -1,1 +1,5 @@
 client_secret.json
+pip-selfcheck.json
+bin/
+include/
+lib/

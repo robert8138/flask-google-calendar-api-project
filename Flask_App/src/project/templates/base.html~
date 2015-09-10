@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My First Webapp</title>
+  </head>
+  <body>
+    <h1>This is my header</h1>
+    {% block content %}
+    {% endblock %}
+    <div>
+      This is the footer. @simeonfranklin
+    </div>
+  </body>
+</html>  
+  
