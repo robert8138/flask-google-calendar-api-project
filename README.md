@@ -35,7 +35,7 @@ Learning By Doing Project - Building a Flask Web Application using Google Calend
 * [Resovling Git Merge Conflicts]
 * [How and When to Do Git Rebase]
 * [Uncommit a Git Commit]
-
+* [Remove directory from git but not local]
 ## Google API References:
 * [QPX Express API]: Global airline pricing and shopping in a single, standard API.
 * [Google Calendar API]
@@ -49,8 +49,11 @@ Learning By Doing Project - Building a Flask Web Application using Google Calend
 [Flask for Data Science]: http://www.datacommunitydc.org/blog/2014/02/flask-mega-meta-tutorial-data-scientists
 [Jeff Knupp's Flask Posts]: http://www.jeffknupp.com/blog/categories/flask/
 [Building a Flask web app with EC2, D3]: http://www.datasciencebytes.com/bytes/2015/03/07/a-d3js-plot-powered-by-a-sql-database/
+
 [Resovling Git Merge Conflicts]: https://help.github.com/articles/resolving-a-merge-conflict-from-the-command-line/
 [How and When to Do Git Rebase]: https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase/
 [Uncommit a Git Commit]: http://stackoverflow.com/questions/2845731/how-to-uncommit-my-last-commit-in-git
+[Remove directory from git but not local]: http://stackoverflow.com/questions/6313126/how-to-remove-a-directory-in-my-github-repository
+
 [QPX Express API]: https://developers.google.com/qpx-express/
 [Google Calendar API]: https://developers.google.com/google-apps/calendar/
