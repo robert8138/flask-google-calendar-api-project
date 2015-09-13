@@ -86,6 +86,7 @@ def get_calendar_list_map(service):
         id = calendar.get('id', None)
         summary = calendar.get('summary', None)
         calendarMap[summary] = id
+        #print summary + " | " + calendarMap[summary]
     return calendarMap
 
 def get_events_in_calendar(calendarName, startDate, endDate=None):
@@ -115,25 +116,21 @@ def get_events_in_calendar(calendarName, startDate, endDate=None):
         end = event['end'].get('dateTime', event['end'].get('date'))
         eventTitle = event['summary']
         
-        if start[-2:] == '00':
-            startHr = datetime.datetime.strptime(start[:-6], "%Y-%m-%dT%H:%M:%S")
-        elif start[-1] == 'Z':
-            startHr = datetime.datetime.strptime(start, "%Y-%m-%dT%H:%M:%SZ")
-        else:
-            startHr = datetime.datetime.strptime(start, "%Y-%m-%d")
+        # if start[-2:] == '00':
+        #     startHr = datetime.datetime.strptime(start[:-6], "%Y-%m-%dT%H:%M:%S")
+        # else:
+        #     startHr = datetime.datetime.strptime(start, "%Y-%m-%d")
         
-        if end[-2:] == '00':
-            endHr = datetime.datetime.strptime(end[:-6], "%Y-%m-%dT%H:%M:%S")
-        elif end[-1] == 'Z':
-            endHr = datetime.datetime.strptime(end, "%Y-%m-%dT%H:%M:%SZ")
-        else: 
-            endHr = datetime.datetime.strptime(end, "%Y-%m-%d")
+        # if end[-2:] == '00':
+        #     endHr = datetime.datetime.strptime(end[:-6], "%Y-%m-%dT%H:%M:%S")
+        # else: 
+        #     endHr = datetime.datetime.strptime(end, "%Y-%m-%d")
 
-        startTS = time.mktime(startHr.timetuple())
-        endTS = time.mktime(endHr.timetuple())
-        hrSpent = (endTS - startTS) / 60
+        # startTS = time.mktime(startHr.timetuple())
+        # endTS = time.mktime(endHr.timetuple())
+        # hrSpent = (endTS - startTS) / 60
 
-        print start, end, hrSpent, eventTitle
+        print eventTitle
 
 def main():
     """Main Entry Point of the App"""
