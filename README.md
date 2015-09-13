@@ -15,15 +15,15 @@ Learning By Doing Project - Building a Flask Web Application using Google Calend
 
 ## The Fundamentals
 * Python
-	** [Starting a Python Project the Right Way]
-	** [Writing Idiomatic Python]: Also there are three vidoes on this very topic
+** [Starting a Python Project the Right Way]
+** [Writing Idiomatic Python]: Also there are three vidoes on this very topic
 
 * Web Programming
 * [Web Programming Basics]: Philip Guo's intro to web programming
 * [What is a Web Framework?]: Given the foundation above, how web framework can help
-	** Client-Server Interaction via HTTP protocol
-	** The request always is initiated by the client, the server also respond with, eventually, a HTML
-	** Web frameworks solves the nitty gritty details of routing and template-ing
+** Client-Server Interaction via HTTP protocol
+** The request always is initiated by the client, the server also respond with, eventually, a HTML
+** Web frameworks solves the nitty gritty details of routing and template-ing
 
 ## Flask Resources:
 * [Intro to Flask with JQuery]: Philip Guo
@@ -36,6 +36,7 @@ Learning By Doing Project - Building a Flask Web Application using Google Calend
 * [How and When to Do Git Rebase]
 * [Uncommit a Git Commit]
 * [Remove directory from git but not local]
+
 ## Google API References:
 * [QPX Express API]: Global airline pricing and shopping in a single, standard API.
 * [Google Calendar API]
