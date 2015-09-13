@@ -4,16 +4,16 @@ Learning By Doing Project - Building a Flask Web Application using Google Calend
 ## Project Milestones
 
 * Set up a single running Flask application
-  ** Basic routes
+  * Basic routes
 
 * Learn enough of Google API to 
-  ** To think about the analyses you want to carry out (ANALYSIS.md)
-  ** Figure out how to query the data you need from the API
-  ** Think of the schema and format of how you want to store these information
+  * To think about the analyses you want to carry out (ANALYSIS.md)
+  * Figure out how to query the data you need from the API
+  * Think of the schema and format of how you want to store these information
 
 * Set up a database using SQLAlchemy and insert the data in there
-  ** Set up corresponding routes so one can interact with the database
-  ** Print csv output to the HTML screen
+  * Set up corresponding routes so one can interact with the database
+  * Print csv output to the HTML screen
 
 * A d3.js plot where the data is powered by the SQL database
 * Bootstrap
@@ -22,15 +22,15 @@ Learning By Doing Project - Building a Flask Web Application using Google Calend
 
 ## The Fundamentals
 * Python
-  ** [Starting a Python Project the Right Way]
-  ** [Writing Idiomatic Python]: Also there are three vidoes on this very topic
+  * [Starting a Python Project the Right Way]
+  * [Writing Idiomatic Python]: Also there are three vidoes on this very topic
 
 * Web Programming
 * [Web Programming Basics]: Philip Guo's intro to web programming
 * [What is a Web Framework?]: Given the foundation above, how web framework can help
-  ** Client-Server Interaction via HTTP protocol
-  ** The request always is initiated by the client, the server also respond with, eventually, a HTML
-  ** Web frameworks solves the nitty gritty details of routing and template-ing
+  * Client-Server Interaction via HTTP protocol
+  * The request always is initiated by the client, the server also respond with, eventually, a HTML
+  * Web frameworks solves the nitty gritty details of routing and template-ing
 
 ## Flask Resources:
 * [Intro to Flask with JQuery]: Philip Guo
