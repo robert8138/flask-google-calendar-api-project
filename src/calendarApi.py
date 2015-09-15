@@ -3,6 +3,7 @@ import httplib2
 import oauth2client
 import datetime
 import time
+import csv
 from apiclient import discovery
 from oauth2client import client
 from oauth2client import tools
@@ -107,6 +108,7 @@ def get_events_in_calendar(calendarName, startDate, endDate=None):
                                     .execute())
     
     events = eventsResult.get('items', [])
+    events_list = []
 
     if not events:
         print 'No events found.'
@@ -134,6 +136,14 @@ def get_events_in_calendar(calendarName, startDate, endDate=None):
         hrSpent = (endTS - startTS) / 60
 
         print start, end, hrSpent, eventTitle
+        events_list.append([start[:10], hrSpent, calendarName, eventTitle.encode("utf-8")])
+    return events_list
+
+def write_events_to_csv(events_list):
+    with open('events.csv', 'a') as events_csv:
+        writer = csv.writer(events_csv)
+        for each_event in events_list:
+            writer.writerow(each_event)
 
 def main():
     """Main Entry Point of the App"""
@@ -142,7 +152,8 @@ def main():
     calendarMap = get_calendar_list_map(service)
 
     for calendarName in calendarMap:
-        get_events_in_calendar(calendarName, '2015-01-01')    
+        events_list = get_events_in_calendar(calendarName, '2015-01-01')
+        write_events_to_csv(events_list)
 
 if __name__ == '__main__':
     main()
