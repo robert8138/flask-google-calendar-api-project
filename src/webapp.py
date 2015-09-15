@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request
 from flask import render_template
+import sqlite3
 
 webapp = Flask(__name__)
 
@@ -9,9 +10,11 @@ data = [('Robert', 'Chang', '@rchang'),
         ('Jack', 'Dorsey', '@jack')]
 
 @webapp.route('/', methods=['GET','POST'])
-def hello():
-  return render_template('hello.html', greeting='hello')
-
+def index():
+  db = sqlite3.connect("events.sqlite3")
+  cur = db.execute('select * from events')
+  rows = cur.fetchall()
+  return render_template('hello.html', rows = rows)
 
 @webapp.route('/users')
 def users():

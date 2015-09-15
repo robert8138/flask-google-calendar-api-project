@@ -61,15 +61,15 @@ def get_start_date(startDate):
     return a datetime object with the proper time zone
     """
     return (datetime.datetime
-                         .strptime(startDate, "%Y-%m-%d")
-                         .isoformat() + 'Z')
+                    .strptime(startDate, "%Y-%m-%d")
+                    .isoformat() + 'Z')
 
 def get_now_date():
     """
     Return a datetime object of current time 
     """
     return (datetime.datetime.utcnow()
-                  .isoformat() + 'Z')
+                    .isoformat() + 'Z')
 
 def get_end_date():
     pass
@@ -80,7 +80,7 @@ def get_calendar_list_map(service):
     page_token = None
     
     calendars = (service.calendarList()
-                          .list(pageToken = page_token).execute())
+                        .list(pageToken = page_token).execute())
       
     for calendar in calendars['items']:
         id = calendar.get('id', None)
