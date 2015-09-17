@@ -1,0 +1,12 @@
+<h1>Display Data in the Database!</h1>
+<table>
+{% for event in events %}
+  <tr>
+	<td>{{ event.id }}</td>
+	<td>{{ event.date }}</td>
+	<td>{{ event.duration }}</td>
+	<td>{{ event.event_type }}</td>
+	<td>{{ event.event_name }}</td>	
+  </tr>
+{% endfor %}
+</table>

@@ -1,13 +1,12 @@
 from flask import Flask
 from flask import request
 from flask import render_template
+from models import *
 import sqlite3
 
 webapp = Flask(__name__)
-
-data = [('Robert', 'Chang', '@rchang'),
-        ('Simeon', 'Franklin', '@sfranklin'),
-        ('Jack', 'Dorsey', '@jack')]
+webapp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///events_all.sqlite3'
+db.init_app(webapp)
 
 @webapp.route('/', methods=['GET','POST'])
 def index():
@@ -15,6 +14,11 @@ def index():
   cur = db.execute('select * from events')
   rows = cur.fetchall()
   return render_template('hello.html', rows = rows)
+
+@webapp.route('/dbdisplay')
+def display():
+  return render_template("dbdisplay.html",
+                  events = Events.query.all())
 
 @webapp.route('/users')
 def users():

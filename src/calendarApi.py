@@ -66,16 +66,37 @@ def get_start_date(startDate):
                     .isoformat() + 'Z')
 
 def get_now_date():
-    """
-    Return a datetime object of current time 
-    """
+    """Return a datetime object of current time"""
     return (datetime.datetime.utcnow()
                     .isoformat() + 'Z')
 
 def get_end_date():
     pass
 
+def get_ts_from_datetime(start, end):
+    """convert datetime string into a time event
+       so we can perform time arithmetic on them"""
+
+    if start[-2:] == '00':
+        startHr = datetime.datetime.strptime(start[:-6], "%Y-%m-%dT%H:%M:%S")
+    elif start[-1] == 'Z':
+        startHr = datetime.datetime.strptime(start, "%Y-%m-%dT%H:%M:%SZ")
+    else:
+        startHr = datetime.datetime.strptime(start, "%Y-%m-%d")
+        
+    if end[-2:] == '00':
+        endHr = datetime.datetime.strptime(end[:-6], "%Y-%m-%dT%H:%M:%S")
+    elif end[-1] == 'Z':
+        endHr = datetime.datetime.strptime(end, "%Y-%m-%dT%H:%M:%SZ")
+    else: 
+        endHr = datetime.datetime.strptime(end, "%Y-%m-%d")
+
+    startTS = time.mktime(startHr.timetuple())
+    endTS = time.mktime(endHr.timetuple())
+    return (startTS, endTS)
+
 def get_calendar_list_map(service):
+    """Get the list of Calendar Names, and store their corresponding ids"""
     
     calendarMap = defaultdict()
     page_token = None
@@ -115,28 +136,12 @@ def get_events_in_calendar(calendarName, startDate, endDate=None):
     for event in events:
         start = event['start'].get('dateTime', event['start'].get('date'))
         end = event['end'].get('dateTime', event['end'].get('date'))
-        eventTitle = event['summary']
-        
-        if start[-2:] == '00':
-            startHr = datetime.datetime.strptime(start[:-6], "%Y-%m-%dT%H:%M:%S")
-        elif start[-1] == 'Z':
-            startHr = datetime.datetime.strptime(start, "%Y-%m-%dT%H:%M:%SZ")
-        else:
-            startHr = datetime.datetime.strptime(start, "%Y-%m-%d")
-        
-        if end[-2:] == '00':
-            endHr = datetime.datetime.strptime(end[:-6], "%Y-%m-%dT%H:%M:%S")
-        elif end[-1] == 'Z':
-            endHr = datetime.datetime.strptime(end, "%Y-%m-%dT%H:%M:%SZ")
-        else: 
-            endHr = datetime.datetime.strptime(end, "%Y-%m-%d")
-
-        startTS = time.mktime(startHr.timetuple())
-        endTS = time.mktime(endHr.timetuple())
+        startTS, endTS = get_ts_from_datetime(start, end)
         hrSpent = (endTS - startTS) / 60
+        eventTitle = event['summary']
 
         print start, end, hrSpent, eventTitle
-        events_list.append([start[:10], hrSpent, calendarName, eventTitle.encode("utf-8")])
+        events_list.append([start[:10], hrSpent, calendarName, eventTitle.replace(',', '').encode("utf-8")])
     return events_list
 
 def write_events_to_csv(events_list):
