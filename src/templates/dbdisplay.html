@@ -1,5 +1,8 @@
-<h1>Display Data in the Database!</h1>
-<table>
+{% extends "base.html" %}
+
+{% block content %}
+
+<table class="table table-striped table-hover">
 {% for event in events %}
   <tr>
 	<td>{{ event.id }}</td>
@@ -10,3 +13,5 @@
   </tr>
 {% endfor %}
 </table>
+
+{% endblock %}
