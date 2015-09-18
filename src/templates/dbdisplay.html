@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 
+{% block title %} Events {% endblock %}
+
 {% block content %}
 
 <table class="table table-striped table-hover">
 {% for event in events %}
   <tr>
-	<td>{{ event.id }}</td>
-	<td>{{ event.date }}</td>
-	<td>{{ event.duration }}</td>
-	<td>{{ event.event_type }}</td>
-	<td>{{ event.event_name }}</td>	
+  	<!-- http://stackoverflow.com/questions/15115052/bootstrap-how-to-set-up-fixed-width-for-td -->
+	<td class="col-md-2">{{ event.date }}</td>
+	<td class="col-md-2">{{ event.duration }}</td>
+	<td class="col-md-2">{{ event.event_type }}</td>
+	<td class="col-md-8">{{ event.event_name }}</td>
   </tr>
 {% endfor %}
 </table>

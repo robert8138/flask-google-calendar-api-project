@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Robert Chang's Google Calendar Flask App</title>
+    <title>{% block title %}{% endblock %}</title>
 
     <!-- Bootstrap -->
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
 
     <style type="text/css">
       body {
-      padding-top: 50px;
+      padding-top: 100px;
       }
     </style>
   </head>
@@ -30,14 +30,13 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/">Home</a></li>
-            <li><a href="/users">Events</a></li>
+            <li><a href="/dbdisplay">Events</a></li>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
     </div>
     <div class="container">    
     {% block content %}
-    <h1>Robert Chang's Google Calendar Analyzer</h1>
     {% endblock %}
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

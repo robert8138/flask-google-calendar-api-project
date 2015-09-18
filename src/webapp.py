@@ -11,10 +11,7 @@ db.init_app(webapp)
 
 @webapp.route('/', methods=['GET','POST'])
 def index():
-  db = sqlite3.connect("events.sqlite3")
-  cur = db.execute('select * from events')
-  rows = cur.fetchall()
-  return render_template('index.html', rows = rows)
+  return render_template('index.html')
 
 @webapp.route('/dbdisplay')
 def display():
@@ -38,6 +35,5 @@ def display_duration_greater_than(duration):
                          events = Events.query.filter(Events.duration > float(duration)).all())     
 
 if __name__ == '__main__':
-
   webapp.debug = True
   webapp.run()
