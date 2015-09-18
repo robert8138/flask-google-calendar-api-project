@@ -19,3 +19,13 @@ class Events(db.Model):
 
 	def __repr__(self):
 		return '<Events %r>' % (self.id)
+
+	@property 
+	def serialize(self):
+		'''return as a json object so we can use it in RESTful API'''
+		return {'id': self.id, 
+		        'date': self.date.strftime("%Y-%m-%d"), 
+		        'duration': self.duration, 
+		        'event_type': self.event_type, 
+		        'event_name': self.event_name }
+		
