@@ -1,53 +1,86 @@
-# Flask Python Using Google Calendar API
-Learning By Doing Project - Building a Flask Web Application using Google Calendar API
+# Building Interactive Data Visualization using Python Flask and Google Calendar API
 
 ## Project Milestones
 
-* Set up a single running Flask application
-  * Basic routes
+* **Learn about Google APIs, specifically, Calendar API**
+    * Learn what data is queryable through Google's API documentation
+    * Learn How to query them. e.g. what parameters to pass in, in what language
+    * List out the questions I want to analyze (ANALYSIS.md)
 
-* Learn enough of Google API to 
-  * To think about the analyses you want to carry out (ANALYSIS.md)
-  * Figure out how to query the data you need from the API
-  * Think of the schema and format of how you want to store these information
+* **Set up a bare-minimum Flask Application**
+    * Basic routes. e.g. index.html
+    * Use the opportunity to review Twitter Flask Series from Simeon Franklin to get back to speed
 
-* Set up a database using SQLAlchemy and insert the data in there
-  * Set up corresponding routes so one can interact with the database
-  * Print csv output to the HTML screen
+* **Modularize HTML pages using templating system JinJia**
+    * The philosophy is to keep the business logic in route definition as simplie as possible
+    * Remove HTML from views, put them in separate HTML files
+    * Learn how to pass in placeholder to build static HTML dynamically
+    * Use Template inheritance to set up 'base.html' and extends it to provide consistent theme
+    * make views return `render_tempalte` and that is it
 
-* A d3.js plot where the data is powered by the SQL database
-* Bootstrap
-* Template-system add-on (?)
-* RESTful API add-on (?)
+* **Leveaging sqlite3 and perform a one time dump**
+    * Setting up sqlite3 - nothing but a delimited text file stored in my local laptop
+    * Quick Data Modeling on what the schema should be
+    * Learn how to query it in Flask
+    * Make sure all the data I care about are being dump to a .csv and to sqlite3
 
-## The Fundamentals
+* **ORM Database interaction using SQLAlchemy**
+    * Again, make views as simple as possible. Hide SQL statement away from views
+    * Learn how to query the data using SQLAlchemy constructs instead of direct SQL query
+    * Print the raw .csv data onto the Screen using SQLAlchemy
+    * Set up new views to render different subset of the db table
+
+* **Twitter Bootstrap**
+    * Now that I can issue a query to backend DB and display them as raw data, beautify the webpage by Twitter bootstrap
+    * Better layout with consistency (using template inheritance of course)
+    * Better index.html page
+
+* **Building API endpoints**
+    * Learn how to translate the output into JSON objects
+    * Build views to return these JSON objects
+    * Here you go the API endpoints
+
+* **d3.js Charts**
+    * Learn how to write client-side code to query my own API endpoints
+    * Render the data on the browser
+    * Use d3.json to hit the API endpoints, take the data and do some data viz on top of it
+
+* **Interactive Data Viz using jquery.js and d3.js**
+    * ?
+
+## Review of the Fundamentals of Web Application
 * Python
-  * [Starting a Python Project the Right Way]
-  * [Writing Idiomatic Python]: Also there are three vidoes on this very topic
+    * [Starting a Python Project the Right Way]
+    * [Writing Idiomatic Python]: Also there are three vidoes on this very topic
 
 * Web Programming
-* [Web Programming Basics]: Philip Guo's intro to web programming
-* [What is a Web Framework?]: Given the foundation above, how web framework can help
-  * Client-Server Interaction via HTTP protocol
-  * The request always is initiated by the client, the server also respond with, eventually, a HTML
-  * Web frameworks solves the nitty gritty details of routing and template-ing
+    * [Web Programming Basics]: Philip Guo's intro to web programming
+    * [What is a Web Framework?]: Given the foundation above, how web framework can help
+    * Client-Server Interaction via HTTP protocol
+    * The request always is initiated by the client, the server also respond with, eventually, a HTML
+    * Web frameworks solves the nitty gritty details of routing and template-ing
 
-## Flask Resources:
+## Flask Resources
 * [Intro to Flask with JQuery]: Philip Guo
 * [Flask for Data Science]
 * [Jeff Knupp's Flask Posts]
 * [Building a Flask web app with EC2, D3]
 
-## Git References:
+## Git References
 * [Resovling Git Merge Conflicts]
 * [How and When to Do Git Rebase]
 * [Uncommit a Git Commit]
 * [Remove directory from git but not local]
+* [Use .gitignore to ignore checking in certain files]
 
-## Google API References:
+Another new thing I am doing is to paste the references I found right next to the code I wrote down to solve a particular problem. 
+
+## Google API References
 * [QPX Express API]: Global airline pricing and shopping in a single, standard API.
 * [Google Calendar API]
 
+
+[question]: https://www.quora.com/As-a-data-scientist-what-are-the-things-that-I-can-learn-from-full-stack-developers-so-that-I-can-build-interesting-web-applications-for-data-science
 
 [Starting a Python Project the Right Way]: http://www.jeffknupp.com/blog/2014/02/04/starting-a-python-project-the-right-way/
 [Writing Idiomatic Python]: https://speakerdeck.com/nycpython/writing-idiomatic-python-jeff-knupp
@@ -62,6 +95,7 @@ Learning By Doing Project - Building a Flask Web Application using Google Calend
 [How and When to Do Git Rebase]: https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase/
 [Uncommit a Git Commit]: http://stackoverflow.com/questions/2845731/how-to-uncommit-my-last-commit-in-git
 [Remove directory from git but not local]: http://stackoverflow.com/questions/6313126/how-to-remove-a-directory-in-my-github-repository
+[Use .gitignore to ignore checking in certain files]:https://help.github.com/articles/ignoring-files/
 
 [QPX Express API]: https://developers.google.com/qpx-express/
 [Google Calendar API]: https://developers.google.com/google-apps/calendar/
