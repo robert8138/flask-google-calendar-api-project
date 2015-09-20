@@ -1,6 +1,7 @@
 client_secret.json
 pip-selfcheck.json
 events.csv
+*.pyc
 bin/
 include/
 lib/

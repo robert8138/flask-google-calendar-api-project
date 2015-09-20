@@ -16,9 +16,34 @@
 d3.select("#clickme").on("click", make_graph);
 
 function make_graph() {
-  url = "http://localhost:5000/api/all"
+  url = "http://127.0.0.1:5000/api/Study Time"
   d3.json(url, function(error, data) {
-    console.log(mydata)
+  	console.log(data['json_list'])
+  	
+  	var dataset = data['json_list']
+  	
+  	// compeletely contrived d3 example
+  	var canvas = d3.select("body").append("svg")
+  				   .attr("width", 1200)
+  				   .attr("height", 2400)
+
+	canvas.selectAll("circle")
+		  .data(dataset)
+		  .enter()
+		  .append("circle")
+	      .attr("cx", 60)
+	      .attr("cy", function(d, i) { return i * 100 + 5; })
+	      .attr("r", function(d) { return d.duration; })
+
+    canvas.selectAll("text")
+    	  .data(dataset)
+    	  .enter()
+    	  .append("text")
+    	  .attr("x", 60)
+    	  .attr("y", function(d, i) { return i * 100 + 50; })
+    	  .attr("fill", "green")
+    	  .text(function (d) { return d.event_name; })
+
   });
 }
 </script>
