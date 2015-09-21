@@ -10,40 +10,92 @@
 
 </body>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<style>
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+</style>
 <!-- <script src="/static/graph.js"></script> -->
 
 <script>
 d3.select("#clickme").on("click", make_graph);
 
+var width = 2400,
+    height = 600;
+
+var canvas = d3.select("body").append("svg")
+               .attr("width", width)
+               .attr("height", height)
+
+var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+              return "<strong>event:</strong> <span style='color:#2ca25f'>" + d.event_name + "</span>";
+            })
+
+canvas.call(tip); //http://bl.ocks.org/Caged/6476579
+
 function make_graph() {
   url = "http://127.0.0.1:5000/api/Study Time"
   d3.json(url, function(error, data) {
-  	console.log(data['json_list'])
   	
+    console.log(data['json_list'])
   	var dataset = data['json_list']
-  	
-  	// compeletely contrived d3 example
-  	var canvas = d3.select("body").append("svg")
-  				   .attr("width", 1200)
-  				   .attr("height", 2400)
 
-	canvas.selectAll("circle")
-		  .data(dataset)
-		  .enter()
-		  .append("circle")
-	      .attr("cx", 60)
-	      .attr("cy", function(d, i) { return i * 100 + 5; })
-	      .attr("r", function(d) { return d.duration; })
+    // Reference: http://bost.ocks.org/mike/bar/3/
+    var y = d3.scale.linear()
+              .domain([0, d3.max(dataset, function(d) { return d.duration; })])
+              .range([height, 0]);
 
-    canvas.selectAll("text")
-    	  .data(dataset)
-    	  .enter()
-    	  .append("text")
-    	  .attr("x", 60)
-    	  .attr("y", function(d, i) { return i * 100 + 50; })
-    	  .attr("fill", "green")
-    	  .text(function (d) { return d.event_name; })
+    var barwidth = width / dataset.length;
 
+    var bars = canvas.selectAll("g")
+                     .data(dataset)
+                     .enter()
+                     .append("g")
+                     .attr("transform", function(d, i) {
+                        return "translate(" + i * barwidth + ",0)";
+                     });
+    
+    bars.append("rect")
+        .attr("y", function(d) { return y(d.duration); })
+        .attr("height", function(d) { return height - y(d.duration); })
+        .attr("width", barwidth - 1)
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide);
+
+    // bars.append("text")
+    //     .attr("x", barwidth / 2)
+    //     .attr("y", function(d) { return y(d.duration) + 5; })
+    //     .attr("dy", ".75em")
+    //     .text(function(d) { return d.event_name; });
   });
 }
 </script>
