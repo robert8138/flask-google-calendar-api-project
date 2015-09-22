@@ -12,6 +12,24 @@
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <style>
+.xaxis path,
+.xaxis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+.yaxis path,
+.yaxis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.spanClass 
+ {
+    display:block;
+ }
+
 .d3-tip {
   line-height: 1;
   font-weight: bold;
@@ -57,7 +75,8 @@ var tip = d3.tip()
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
-              return "<strong>event:</strong> <span style='color:#2ca25f'>" + d.event_name + "</span>";
+              return "<strong>event:</strong> <span style='color:#2ca25f' class='spanClass'>" + d.event_name + "</span>" +
+                     "<strong>date:</strong> <span style='color:#2ca25f' class='spanClass'>" + d.date + "</span>";
             })
 
 canvas.call(tip); //http://bl.ocks.org/Caged/6476579
@@ -70,32 +89,50 @@ function make_graph() {
   	var dataset = data['json_list']
 
     // Reference: http://bost.ocks.org/mike/bar/3/
+    var x = d3.scale.linear()
+              .domain([0, dataset.length])
+              .range([0, width]);
+
     var y = d3.scale.linear()
               .domain([0, d3.max(dataset, function(d) { return d.duration; })])
               .range([height, 0]);
 
+    var xAxis = d3.svg.axis()
+                  .scale(x)
+                  .ticks(25)
+                  .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+                  .scale(y)
+                  .ticks(15)
+                  .orient("left");
+
     var barwidth = width / dataset.length;
+
+    canvas.append("g")
+          .attr("class", "xaxis")
+          .attr("transform", "translate(50," + (height - 20) + ")")
+          .call(xAxis)
+
+    canvas.append("g")
+          .attr("class", "yaxis")
+          .attr("transform", "translate(50, 0)")
+          .call(yAxis);
 
     var bars = canvas.selectAll("g")
                      .data(dataset)
                      .enter()
                      .append("g")
                      .attr("transform", function(d, i) {
-                        return "translate(" + i * barwidth + ",0)";
+                        return "translate(" + (i * barwidth - 350) + ",0)";
                      });
     
     bars.append("rect")
         .attr("y", function(d) { return y(d.duration); })
-        .attr("height", function(d) { return height - y(d.duration); })
+        .attr("height", function(d) { return height - y(d.duration - 10); })
         .attr("width", barwidth - 1)
         .on('mouseover', tip.show)
         .on('mouseout', tip.hide);
-
-    // bars.append("text")
-    //     .attr("x", barwidth / 2)
-    //     .attr("y", function(d) { return y(d.duration) + 5; })
-    //     .attr("dy", ".75em")
-    //     .text(function(d) { return d.event_name; });
   });
 }
 </script>
