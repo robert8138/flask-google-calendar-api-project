@@ -79,6 +79,9 @@ Another new thing I am doing is to paste the references I found right next to th
 * [QPX Express API]: Global airline pricing and shopping in a single, standard API.
 * [Google Calendar API]
 
+## Using Grunt to do Front-End Web Development
+* [Browser Auto-refresh]
+* [Another example]
 
 [question]: https://www.quora.com/As-a-data-scientist-what-are-the-things-that-I-can-learn-from-full-stack-developers-so-that-I-can-build-interesting-web-applications-for-data-science
 
@@ -99,3 +102,6 @@ Another new thing I am doing is to paste the references I found right next to th
 
 [QPX Express API]: https://developers.google.com/qpx-express/
 [Google Calendar API]: https://developers.google.com/google-apps/calendar/
+
+[Browser Auto-refresh]: http://stackoverflow.com/questions/21913363/why-isnt-grunt-contrib-watch-livereload-working
+[Another eample]: http://justinklemm.com/grunt-watch-livereload-javascript-less-sass-compilation/

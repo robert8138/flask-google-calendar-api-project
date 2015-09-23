@@ -5,3 +5,4 @@ events.csv
 bin/
 include/
 lib/
+node_modules/

@@ -104,7 +104,7 @@ function make_graph() {
 
     var yAxis = d3.svg.axis()
                   .scale(y)
-                  .ticks(15)
+                  .ticks(10)
                   .orient("left");
 
     var barwidth = width / dataset.length;
@@ -131,6 +131,7 @@ function make_graph() {
         .attr("y", function(d) { return y(d.duration); })
         .attr("height", function(d) { return height - y(d.duration - 10); })
         .attr("width", barwidth - 1)
+        .attr("fill", "#fdae6b")
         .on('mouseover', tip.show)
         .on('mouseout', tip.hide);
   });
