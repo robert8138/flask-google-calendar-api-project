@@ -4,139 +4,22 @@
 
 {% block content %}
 
-<button type="button" id="clickme" class="btn btn-default btn-lg">
-  <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Retrieve JSON data
+<button type="button" id="study" class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Study Time
+</button>
+<button type="button" id="outsidereading" class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Outside Reading
+</button>
+<button type="button" id="birthday" class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Birthdays
 </button>
 
 </body>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-<style>
-.xaxis path,
-.xaxis line {
-    fill: none;
-    stroke: black;
-    shape-rendering: crispEdges;
-}
-.yaxis path,
-.yaxis line {
-    fill: none;
-    stroke: black;
-    shape-rendering: crispEdges;
-}
 
-.spanClass 
- {
-    display:block;
- }
-
-.d3-tip {
-  line-height: 1;
-  font-weight: bold;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
-}
-
-/* Creates a small triangle extender for the tooltip */
-.d3-tip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 10px;
-  width: 100%;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
-}
-
-/* Style northward tooltips differently */
-.d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
-}
-</style>
-<!-- <script src="/static/graph.js"></script> -->
-
-<script>
-d3.select("#clickme").on("click", make_graph);
-
-var width = 2400,
-    height = 600;
-
-var canvas = d3.select("body").append("svg")
-               .attr("width", width)
-               .attr("height", height)
-
-var tip = d3.tip()
-            .attr('class', 'd3-tip')
-            .offset([-10, 0])
-            .html(function(d) {
-              return "<strong>event:</strong> <span style='color:#2ca25f' class='spanClass'>" + d.event_name + "</span>" +
-                     "<strong>date:</strong> <span style='color:#2ca25f' class='spanClass'>" + d.date + "</span>";
-            })
-
-canvas.call(tip); //http://bl.ocks.org/Caged/6476579
-
-function make_graph() {
-  url = "http://127.0.0.1:5000/api/Study Time"
-  d3.json(url, function(error, data) {
-  	
-    console.log(data['json_list'])
-  	var dataset = data['json_list']
-
-    // Reference: http://bost.ocks.org/mike/bar/3/
-    var x = d3.scale.linear()
-              .domain([0, dataset.length])
-              .range([0, width]);
-
-    var y = d3.scale.linear()
-              .domain([0, d3.max(dataset, function(d) { return d.duration; })])
-              .range([height, 0]);
-
-    var xAxis = d3.svg.axis()
-                  .scale(x)
-                  .ticks(25)
-                  .orient("bottom");
-
-    var yAxis = d3.svg.axis()
-                  .scale(y)
-                  .ticks(10)
-                  .orient("left");
-
-    var barwidth = width / dataset.length;
-
-    canvas.append("g")
-          .attr("class", "xaxis")
-          .attr("transform", "translate(50," + (height - 20) + ")")
-          .call(xAxis)
-
-    canvas.append("g")
-          .attr("class", "yaxis")
-          .attr("transform", "translate(50, 0)")
-          .call(yAxis);
-
-    var bars = canvas.selectAll("g")
-                     .data(dataset)
-                     .enter()
-                     .append("g")
-                     .attr("transform", function(d, i) {
-                        return "translate(" + (i * barwidth - 350) + ",0)";
-                     });
-    
-    bars.append("rect")
-        .attr("y", function(d) { return y(d.duration); })
-        .attr("height", function(d) { return height - y(d.duration - 10); })
-        .attr("width", barwidth - 1)
-        .attr("fill", "#fdae6b")
-        .on('mouseover', tip.show)
-        .on('mouseout', tip.hide);
-  });
-}
-</script>
-
+<!-- Custom codes for d3 plotting -->
+<link href="/static/css/tip.css" rel="stylesheet">
+<script src="/static/graph.js"></script>
 
 {% endblock %}

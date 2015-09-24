@@ -104,4 +104,4 @@ Another new thing I am doing is to paste the references I found right next to th
 [Google Calendar API]: https://developers.google.com/google-apps/calendar/
 
 [Browser Auto-refresh]: http://stackoverflow.com/questions/21913363/why-isnt-grunt-contrib-watch-livereload-working
-[Another eample]: http://justinklemm.com/grunt-watch-livereload-javascript-less-sass-compilation/
+[Another example]: http://justinklemm.com/grunt-watch-livereload-javascript-less-sass-compilation/
