@@ -3,7 +3,7 @@ d3.select("#outsidereading").on("click", function() { make_graph("Outside Readin
 d3.select("#birthday").on("click", function() { make_graph("Birthdays"); });
 
 var width = 2400,
-    height = 610;
+    height = 650;
 
 var svg = d3.select("body").append("svg")
                .attr("width", width)
@@ -48,12 +48,16 @@ function make_graph(event_type) {
                   .ticks(10)
                   .orient("left");
 
+    // This is more of a hack, because there is no transition
+    // I basically removed the old axes, rebuild news ones, and plot them
+    svg.selectAll("g").remove();
+
     svg.append("g")
           .attr("class", "xaxis")
-          .attr("transform", "translate(50," + (height - 20) + ")")
+          .attr("transform", "translate(50," + (height - 30 - 10) + ")")
           .transition()
           .duration(750)
-          .call(xAxis)
+          .call(xAxis);
 
     svg.append("g")
           .attr("class", "yaxis")
@@ -62,20 +66,25 @@ function make_graph(event_type) {
           .duration(750)
           .call(yAxis);
 
-    svg.selectAll(".bar")
-       .data(dataset)
-       .enter()
-       .append("rect")
-       .transition()
-       .duration(2000)
-       .attr("transform", function(d, i) {
-            return "translate(" + (i * barwidth + 50) + ",0)"; })    
-       .attr("y", function(d) { return y(d.duration); })
-       .attr("height", function(d) { return height - y(d.duration - 10); })
-       .attr("width", barwidth - 1)
-       .attr("fill", "#fdae6b")
 
-    svg.selectAll(".bar")
+    svg.selectAll("rect").remove();
+    
+    var bars = svg.selectAll(".bar")
+                  .data(dataset);
+
+    // http://bl.ocks.org/mbostock/3808218
+    bars.enter()
+        .append("rect")
+        .transition()
+        .duration(2000)
+        .attr("transform", function(d, i) {
+            return "translate(" + (i * barwidth + 50) + ",0)"; })    
+        .attr("y", function(d) { return y(d.duration); })
+        .attr("height", function(d) { return height - 40 - y(d.duration); })
+        .attr("width", barwidth - 1)
+        .attr("fill", "#fdae6b");
+
+    svg.selectAll("rect")    
        .on('mouseover', tip.show)
        .on('mouseout', tip.hide);
   });
