@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %} Calendar View {% endblock %}
+
+{% block content %}
+
+<button type="button" id="study" class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Study Time
+</button>
+
+<button type="button" id="outsidereading" class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Outside Reading
+</button>
+
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+<!-- Custom codes for d3 plotting -->
+<link href="/static/css/calendar.css" rel="stylesheet">
+<script src="/static/calendar.js"></script>
+
+{% endblock %}

@@ -73,6 +73,10 @@
 * [Remove directory from git but not local]
 * [Use .gitignore to ignore checking in certain files]
 
+## D3 References
+* [General Update Pattern]
+* [General Update Pattern III]
+
 Another new thing I am doing is to paste the references I found right next to the code I wrote down to solve a particular problem. 
 
 ## Google API References
@@ -105,3 +109,6 @@ Another new thing I am doing is to paste the references I found right next to th
 
 [Browser Auto-refresh]: http://stackoverflow.com/questions/21913363/why-isnt-grunt-contrib-watch-livereload-working
 [Another example]: http://justinklemm.com/grunt-watch-livereload-javascript-less-sass-compilation/
+
+[General Update Pattern]: http://bl.ocks.org/mbostock/3808218
+[General Update Pattern III]: http://bl.ocks.org/mbostock/3808234

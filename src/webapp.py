@@ -60,10 +60,16 @@ def api_by_duration(duration):
   events = Events.query.filter(Events.duration > float(duration)).all()
   return jsonify(json_list = [event.serialize for event in events])
 
-# Plotting endpoints
+# Plotting endpoints - Bar Chart View
 @webapp.route('/d3')
-def plot_d3_graph():
+def plot_d3_bars():
   return render_template("d3.html")
+
+# Plotting endpoints - Calendar View
+@webapp.route('/calendar')
+def plot_d3_calendar():
+  return render_template("calendar.html")
+
 
 if __name__ == '__main__':
   webapp.debug = True

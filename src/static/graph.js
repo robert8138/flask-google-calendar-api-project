@@ -1,6 +1,9 @@
 d3.select("#study").on("click", function() { make_graph("Study Time"); });
 d3.select("#outsidereading").on("click", function() { make_graph("Outside Reading"); });
 d3.select("#birthday").on("click", function() { make_graph("Birthdays"); });
+d3.select("#misc").on("click", function() { make_graph("Misc"); });
+d3.select("#deadline").on("click", function() { make_graph("Deadline"); });
+d3.select("#exercise").on("click", function() { make_graph("Exercise"); });
 
 var width = 2400,
     height = 650;
