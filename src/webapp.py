@@ -4,12 +4,15 @@ from flask import render_template
 from flask import jsonify
 from flask.ext.cors import CORS
 from models.models import *
+from models.calendarapi import *
+from models.loadcsv import *
 import sqlite3
 import datetime
+import os
 
 webapp = Flask(__name__)
 CORS(webapp)
-webapp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/events_all.sqlite3'
+webapp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/events_all_2014.sqlite3'
 db.init_app(webapp)
 
 event_type_map = {'studytime': 'Study Time',
@@ -80,5 +83,20 @@ def plot_d3_calendar():
 
 
 if __name__ == '__main__':
+  
+  EVENTS_CSV_FILE = "events.csv"
+  DB_FILE = "db/events_all_2014.sqlite3"
+  
+  if not os.path.exists(EVENTS_CSV_FILE) and not os.path.exists(DB_FILE):
+
+    service = build_service()
+    calendarMap = get_calendar_list_map(service)
+
+    for calendarName in calendarMap:
+        events_list = get_events_in_calendar(calendarName, '2014-01-01')
+        write_events_to_csv(events_list)
+    
+    load_csv_to_db("events.csv")
+
   webapp.debug = True
   webapp.run()

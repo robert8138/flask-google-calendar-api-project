@@ -137,11 +137,16 @@ def get_events_in_calendar(calendarName, startDate, endDate=None):
         start = event['start'].get('dateTime', event['start'].get('date'))
         end = event['end'].get('dateTime', event['end'].get('date'))
         startTS, endTS = get_ts_from_datetime(start, end)
-        hrSpent = (endTS - startTS) / 60
+        
+        duration = (endTS - startTS) / 60
+        event_type = calendarName
+        
         eventTitle = event['summary']
+        event_name = ''.join([i if ord(i) < 128 else '' for i in eventTitle.replace(',','')])
 
-        print start, end, hrSpent, eventTitle
-        events_list.append([start[:10], hrSpent, calendarName, eventTitle.replace(',', '').encode("utf-8")])
+        #print start[:10], duration, event_type, event_name
+    
+        events_list.append([start[:10], duration, event_type, event_name])
     return events_list
 
 def write_events_to_csv(events_list):
@@ -157,7 +162,7 @@ def main():
     calendarMap = get_calendar_list_map(service)
 
     for calendarName in calendarMap:
-        events_list = get_events_in_calendar(calendarName, '2015-01-01')
+        events_list = get_events_in_calendar(calendarName, '2013-01-01')
         write_events_to_csv(events_list)
 
 if __name__ == '__main__':
