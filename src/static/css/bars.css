@@ -3,7 +3,7 @@
 }
 
 .bar:hover {
-  fill: orangered;
+  fill: #2ca25f;
 }
 
 .xaxis path,

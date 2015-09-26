@@ -1,8 +1,3 @@
-body {
-  font: 12px sans-serif;
-  shape-rendering: crispEdges;
-}
-
 .day {
   fill: #fff;
   stroke: #ccc;
@@ -16,4 +11,9 @@ body {
 
 .heatmap {
   fill: #2b8cbe;
+}
+
+.calendar {
+  display: block;
+  margin: auto;
 }

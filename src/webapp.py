@@ -12,6 +12,13 @@ CORS(webapp)
 webapp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/events_all.sqlite3'
 db.init_app(webapp)
 
+event_type_map = {'studytime': 'Study Time',
+                  'outsidereading': 'Outside Reading',
+                  'birthdays': 'Birthdays',
+                  'misc': 'Misc',
+                  'deadline': 'Deadline',
+                  'exercise': 'Exercise'}
+
 # Regular Views
 @webapp.route('/', methods=['GET','POST'])
 def index():
@@ -24,6 +31,7 @@ def display():
 
 @webapp.route('/dbdisplay/<event_type>')
 def display_by_event_type(event_type):
+  event_type = event_type_map[event_type]
   return render_template("dbdisplay.html",
                          events = Events.query.filter_by(event_type = event_type).all()) 
 
@@ -46,6 +54,7 @@ def api_all():
 
 @webapp.route('/api/<event_type>')
 def api_by_event_type(event_type):
+  event_type = event_type_map[event_type]
   events = Events.query.filter_by(event_type = event_type).all()
   return jsonify(json_list = [event.serialize for event in events])
 

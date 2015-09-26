@@ -2,9 +2,9 @@
 
 ## TODO
 
-* In bars.html, fix why there are white spaces
-* In calendar.html, add tooltip to dates, and center the whole image
 * In calendar.html, still need to figure out how to do data.mapValues.max
+* Add OAuth so other people can analyze their own calendar
+* Deploy the app using Heroku
 
 ## Project Milestones
 

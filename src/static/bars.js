@@ -1,16 +1,16 @@
-d3.select("#study").on("click", function() { make_graph("Study Time"); });
-d3.select("#outsidereading").on("click", function() { make_graph("Outside Reading"); });
-d3.select("#birthday").on("click", function() { make_graph("Birthdays"); });
-d3.select("#misc").on("click", function() { make_graph("Misc"); });
-d3.select("#deadline").on("click", function() { make_graph("Deadline"); });
-d3.select("#exercise").on("click", function() { make_graph("Exercise"); });
+d3.select("#study").on("click", function() { make_graph("studytime"); });
+d3.select("#outsidereading").on("click", function() { make_graph("outsidereading"); });
+d3.select("#birthday").on("click", function() { make_graph("birthdays"); });
+d3.select("#misc").on("click", function() { make_graph("misc"); });
+d3.select("#deadline").on("click", function() { make_graph("deadline"); });
+d3.select("#exercise").on("click", function() { make_graph("exercise"); });
 
 var width = 1300,
     height = 250;
 
 var svg = d3.select("body").append("svg")
                .attr("width", width)
-               .attr("height", height)
+               .attr("height", height);
 
 var tip = d3.tip()
             .attr('class', 'd3-tip')
@@ -40,7 +40,7 @@ function make_graph(event_type) {
 
     var y = d3.scale.linear()
               .domain([0, d3.max(dataset, function(d) { return d.duration; })])
-              .range([height - 10, 0]);
+              .range([height - 30, 0]);
 
     var xAxis = d3.svg.axis()
                   .scale(x)
@@ -49,7 +49,7 @@ function make_graph(event_type) {
 
     var yAxis = d3.svg.axis()
                   .scale(y)
-                  .ticks(10)
+                  .ticks(5)
                   .orient("left");
 
     // This is more of a hack, because there is no transition

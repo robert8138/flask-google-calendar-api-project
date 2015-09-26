@@ -1,9 +1,9 @@
-d3.select("#study").on("click", function() { make_calendar("Study Time"); });
-d3.select("#outsidereading").on("click", function() { make_calendar("Outside Reading"); });
-d3.select("#birthday").on("click", function() { make_calendar("Birthdays"); });
-d3.select("#misc").on("click", function() { make_calendar("Misc"); });
-d3.select("#deadline").on("click", function() { make_calendar("Deadline"); });
-d3.select("#exercise").on("click", function() { make_calendar("Exercise"); });
+d3.select("#study").on("click", function() { make_calendar("studytime"); });
+d3.select("#outsidereading").on("click", function() { make_calendar("outsidereading"); });
+d3.select("#birthday").on("click", function() { make_calendar("birthdays"); });
+d3.select("#misc").on("click", function() { make_calendar("misc"); });
+d3.select("#deadline").on("click", function() { make_calendar("deadline"); });
+d3.select("#exercise").on("click", function() { make_calendar("exercise"); });
 
 var width = 1000,
     height = 150,
@@ -18,7 +18,7 @@ var svg = d3.select("body").selectAll("svg")
     .enter().append("svg")
     .attr("width", width)
     .attr("height", height)
-    .attr("class", "RdYlGn")
+    .attr("class", "calendar")
     .append("g")
     .attr("transform", "translate(" + ((width - cellSize * 53) / 2) + "," + (height - cellSize * 7 - 1) + ")");
 
@@ -39,6 +39,7 @@ var rect = svg.selectAll(".day")
     .attr("y", function(d) { return d.getDay() * cellSize; })
     .datum(format);
 
+// Add title/date to each cell
 rect.append("title")
     .text(function(d) { return d; });
 

@@ -4,9 +4,9 @@
 
 {% block content %}
 
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
 {% for event in events %}
-  <tr>
+  <tr align="center">
   	<!-- http://stackoverflow.com/questions/15115052/bootstrap-how-to-set-up-fixed-width-for-td -->
 	<td class="col-md-2">{{ event.date }}</td>
 	<td class="col-md-2">{{ event.duration }}</td>
