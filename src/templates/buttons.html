@@ -1,9 +1,3 @@
-{% extends "base.html" %}
-
-{% block title %} d3 Visualization test page {% endblock %}
-
-{% block content %}
-
 <button type="button" id="study" class="btn btn-default btn-lg">
   <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Study Time
 </button>
@@ -27,12 +21,3 @@
 <button type="button" id="misc" class="btn btn-default btn-lg">
   <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Misc
 </button>
-
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-
-<!-- Custom codes for d3 plotting -->
-<link href="/static/css/tip.css" rel="stylesheet">
-<script src="/static/graph.js"></script>
-
-{% endblock %}

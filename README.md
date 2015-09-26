@@ -1,5 +1,11 @@
 # Building Interactive Data Visualization using Python Flask and Google Calendar API
 
+## TODO
+
+* In bars.html, fix why there are white spaces
+* In calendar.html, add tooltip to dates, and center the whole image
+* In calendar.html, still need to figure out how to do data.mapValues.max
+
 ## Project Milestones
 
 * **Learn about Google APIs, specifically, Calendar API**
@@ -40,18 +46,17 @@
     * Build views to return these JSON objects
     * Here you go the API endpoints
 
-* **d3.js Charts**
-    * Learn how to write client-side code to query my own API endpoints
-    * Render the data on the browser
-    * Use d3.json to hit the API endpoints, take the data and do some data viz on top of it
-
-* **Interactive Data Viz using jquery.js and d3.js**
-    * ?
+* **Interactive d3 Charts**
+    * Create Bootstrap style buttons
+    * Create listners (e.g. d3.select.on) that takes in parameters
+    * On click, use d3.json to hit my own API endpoints to get data
+    * use the data and plot bars and calendars
 
 ## Review of the Fundamentals of Web Application
 * Python
     * [Starting a Python Project the Right Way]
     * [Writing Idiomatic Python]: Also there are three vidoes on this very topic
+    * [Import from a relative path]
 
 * Web Programming
     * [Web Programming Basics]: Philip Guo's intro to web programming
@@ -76,6 +81,7 @@
 ## D3 References
 * [General Update Pattern]
 * [General Update Pattern III]
+* [d3 nest]
 
 Another new thing I am doing is to paste the references I found right next to the code I wrote down to solve a particular problem. 
 
@@ -91,6 +97,8 @@ Another new thing I am doing is to paste the references I found right next to th
 
 [Starting a Python Project the Right Way]: http://www.jeffknupp.com/blog/2014/02/04/starting-a-python-project-the-right-way/
 [Writing Idiomatic Python]: https://speakerdeck.com/nycpython/writing-idiomatic-python-jeff-knupp
+[Import from a relative path]:http://stackoverflow.com/questions/279237/import-a-module-from-a-relative-path
+
 [Web Programming Basics]: http://www.pgbovine.net/teaching-web-programming.htm
 [What is a Web Framework?]: http://www.jeffknupp.com/blog/2014/03/03/what-is-a-web-framework/
 [Intro to Flask with JQuery]: http://www.pgbovine.net/flask-python-tutorial.htm
@@ -112,3 +120,4 @@ Another new thing I am doing is to paste the references I found right next to th
 
 [General Update Pattern]: http://bl.ocks.org/mbostock/3808218
 [General Update Pattern III]: http://bl.ocks.org/mbostock/3808234
+[d3 nest]: http://bl.ocks.org/phoebebright/raw/3176159/

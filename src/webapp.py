@@ -3,13 +3,13 @@ from flask import request
 from flask import render_template
 from flask import jsonify
 from flask.ext.cors import CORS
-from models import *
+from models.models import *
 import sqlite3
 import datetime
 
 webapp = Flask(__name__)
 CORS(webapp)
-webapp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///events_all.sqlite3'
+webapp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/events_all.sqlite3'
 db.init_app(webapp)
 
 # Regular Views
@@ -60,12 +60,11 @@ def api_by_duration(duration):
   events = Events.query.filter(Events.duration > float(duration)).all()
   return jsonify(json_list = [event.serialize for event in events])
 
-# Plotting endpoints - Bar Chart View
-@webapp.route('/d3')
+# Plotting endpoints
+@webapp.route('/bars')
 def plot_d3_bars():
-  return render_template("d3.html")
+  return render_template("bars.html")
 
-# Plotting endpoints - Calendar View
 @webapp.route('/calendar')
 def plot_d3_calendar():
   return render_template("calendar.html")

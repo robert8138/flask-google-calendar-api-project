@@ -1,18 +1,16 @@
 d3.select("#study").on("click", function() { make_calendar("Study Time"); });
 d3.select("#outsidereading").on("click", function() { make_calendar("Outside Reading"); });
+d3.select("#birthday").on("click", function() { make_calendar("Birthdays"); });
+d3.select("#misc").on("click", function() { make_calendar("Misc"); });
+d3.select("#deadline").on("click", function() { make_calendar("Deadline"); });
+d3.select("#exercise").on("click", function() { make_calendar("Exercise"); });
 
 var width = 1000,
     height = 150,
-    cellSize = 15; // cell size
+    cellSize = 15;
 
 var percent = d3.format(".1%"),
     format = d3.time.format("%Y-%m-%d");
-
-// setting up the color from numeric to categorical
-// see calendar.js for the categories
-var color = d3.scale.quantize()
-    .domain([0, 20000])
-    .range(d3.range(11).map(function(d) { return "q" + d + "-11"; }));
 
 // Set up the skeleton by year
 var svg = d3.select("body").selectAll("svg")
@@ -65,41 +63,32 @@ function monthPath(t0) {
       + "H" + (w0 + 1) * cellSize + "Z";
 }
 
-// d3.select(self.frameElement).style("height", "2910px");
-
 function make_calendar(event_type) {
 	
 	url = "http://127.0.0.1:5000/api/".concat(event_type)
   	d3.json(url, function(error, data) {
 
   		console.log(event_type.concat("is loaded!"))
-    	//console.log(data['json_list'])
   	
     	var dataset = data['json_list']
 
     	var dataset_munged = d3.nest()
     		.key(function(d) { return format(new Date(d.date)); })
-    		.rollup(function(d) { return d.duration; }) //TODO
+    		.rollup(function(events) { return d3.sum(events, function(d) {
+    											return d.duration|| 0; }); })
     		.map(dataset);
 
-    	console.log(dataset_munged)
+    	var colors = ["#ffffd9","#edf8b1","#c7e9b4",
+    	              "#7fcdbb","#41b6c4","#1d91c0",
+    	              "#225ea8","#253494","#081d58"]
+		var colorScale = d3.scale.quantize()
+              // .domain([0, d3.max(dataset_munged, function (d) { return d.value; })])
+              .domain([0, 200]) //TODO
+              .range(colors);
 
-    	rect.filter(function(d) { return d in dataset_munged; }) //TODO
-    		.attr("class", function(d) { return "day q0-11"; }) //TODO
+    	rect
+    	  .classed("day", true)
+    	  .style("fill", function(d) { return colorScale(dataset_munged[d]); })
+
   	})
  }
-
-
-// d3.csv("dji.csv", function(error, csv) {
-//   if (error) throw error;
-
-//   var data = d3.nest()
-//     .key(function(d) { return d.Date; })
-//     .rollup(function(d) { return (d[0].Close - d[0].Open) / d[0].Open; })
-//     .map(csv);
-
-//   rect.filter(function(d) { return d in data; })
-//       .attr("class", function(d) { return "day " + color(data[d]); })
-//     .select("title")
-//       .text(function(d) { return d + ": " + percent(data[d]); });
-// });

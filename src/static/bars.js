@@ -5,8 +5,8 @@ d3.select("#misc").on("click", function() { make_graph("Misc"); });
 d3.select("#deadline").on("click", function() { make_graph("Deadline"); });
 d3.select("#exercise").on("click", function() { make_graph("Exercise"); });
 
-var width = 2400,
-    height = 650;
+var width = 1300,
+    height = 250;
 
 var svg = d3.select("body").append("svg")
                .attr("width", width)
@@ -20,19 +20,20 @@ var tip = d3.tip()
                      "<strong>date:</strong> <span style='color:#2ca25f' class='spanClass'>" + d.date + "</span>";
             })
 
-svg.call(tip); //http://bl.ocks.org/Caged/6476579
+//http://bl.ocks.org/Caged/6476579
+svg.call(tip); 
 
 function make_graph(event_type) {
   url = "http://127.0.0.1:5000/api/".concat(event_type)
   d3.json(url, function(error, data) {
-  	
+    
     console.log(event_type.concat("is loaded!"))
     console.log(data['json_list'])
-  	
+    
     var dataset = data['json_list']
     var barwidth = width / dataset.length;
 
-    // Reference: http://bost.ocks.org/mike/bar/3/
+    // http://bost.ocks.org/mike/bar/3/
     var x = d3.scale.linear()
               .domain([0, dataset.length])
               .range([0, width]);
@@ -53,6 +54,7 @@ function make_graph(event_type) {
 
     // This is more of a hack, because there is no transition
     // I basically removed the old axes, rebuild news ones, and plot them
+
     svg.selectAll("g").remove();
 
     svg.append("g")
@@ -70,14 +72,15 @@ function make_graph(event_type) {
           .call(yAxis);
 
 
-    svg.selectAll("rect").remove();
+    // http://bl.ocks.org/mbostock/3808218
+    // Enter, Update, Exit Design Pattern - suggested by Krist
     
     var bars = svg.selectAll(".bar")
                   .data(dataset);
 
-    // http://bl.ocks.org/mbostock/3808218
     bars.enter()
         .append("rect")
+        .classed("bar", true)
         .transition()
         .duration(2000)
         .attr("transform", function(d, i) {
@@ -87,8 +90,17 @@ function make_graph(event_type) {
         .attr("width", barwidth - 1)
         .attr("fill", "#fdae6b");
 
-    svg.selectAll("rect")    
-       .on('mouseover', tip.show)
-       .on('mouseout', tip.hide);
+    bars
+        .attr("transform", function(d, i) {
+            return "translate(" + (i * barwidth + 50) + ",0)"; })    
+        .attr("y", function(d) { return y(d.duration); })
+        .attr("height", function(d) { return height - 40 - y(d.duration); })
+        .attr("width", barwidth - 1);
+
+    bars.exit().remove();
+
+    bars.on('mouseover', tip.show)
+        .on('mouseout', tip.hide);
+
   });
 }
