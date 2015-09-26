@@ -83,8 +83,6 @@
 * [General Update Pattern III]
 * [d3 nest]
 
-Another new thing I am doing is to paste the references I found right next to the code I wrote down to solve a particular problem. 
-
 ## Google API References
 * [QPX Express API]: Global airline pricing and shopping in a single, standard API.
 * [Google Calendar API]
@@ -92,6 +90,12 @@ Another new thing I am doing is to paste the references I found right next to th
 ## Using Grunt to do Front-End Web Development
 * [Browser Auto-refresh]
 * [Another example]
+
+## Heroku
+* [Python Boilerplate] - Deploy to Heroku section
+* [Getting started with Python in Heroku]
+
+Another new thing I am doing is to paste the references I found right next to the code I wrote down to solve a particular problem. 
 
 [question]: https://www.quora.com/As-a-data-scientist-what-are-the-things-that-I-can-learn-from-full-stack-developers-so-that-I-can-build-interesting-web-applications-for-data-science
 
@@ -121,3 +125,6 @@ Another new thing I am doing is to paste the references I found right next to th
 [General Update Pattern]: http://bl.ocks.org/mbostock/3808218
 [General Update Pattern III]: http://bl.ocks.org/mbostock/3808234
 [d3 nest]: http://bl.ocks.org/phoebebright/raw/3176159/
+
+[Python Boilerplate]: https://github.com/mjhea0/flask-boilerplate
+[Getting started with Python in Heroku]: https://devcenter.heroku.com/articles/getting-started-with-python#next-steps
