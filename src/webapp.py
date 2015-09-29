@@ -2,17 +2,24 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from flask import jsonify
+from apiclient import discovery
+from oauth2client import client
 from flask.ext.cors import CORS
+from oauth2client import client
 from models.models import *
 from models.calendarapi import *
 from models.loadcsv import *
 import sqlite3
 import datetime
 import os
+import flask
+import httplib2
 
 webapp = Flask(__name__)
-CORS(webapp)
 webapp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/events_all_2014.sqlite3'
+webapp.config['SESSION_TYPE'] = 'filesystem'
+webapp.config['SECRET_KEY'] = 'super secret key'
+CORS(webapp)
 db.init_app(webapp)
 
 event_type_map = {'studytime': 'Study Time',
@@ -22,11 +29,45 @@ event_type_map = {'studytime': 'Study Time',
                   'deadline': 'Deadline',
                   'exercise': 'Exercise'}
 
-# Regular Views
 @webapp.route('/', methods=['GET','POST'])
 def index():
   return render_template('index.html')
 
+@webapp.route('/login')
+def login():
+  if 'credentials' not in flask.session:
+    return flask.redirect(flask.url_for('oauth2callback'))
+  credentials = client.OAuth2Credentials.from_json(flask.session['credentials'])
+  if credentials.access_token_expired:
+    return flask.redirect(flask.url_for('oauth2callback'))
+  else:
+    http_auth = credentials.authorize(httplib2.Http())
+    calendar_service = discovery.build('calendar', 'v3', http = http_auth)
+    calendars = calendar_service.calendarList().list().execute()
+    calendar_list = [calendar.get('summary') for calendar in calendars['items']]
+    return render_template('login.html', calendar_list = calendar_list)
+
+@webapp.route('/oauth2callback')
+def oauth2callback():
+  flow = client.flow_from_clientsecrets(
+      'client_secrets.json',
+      scope='https://www.googleapis.com/auth/calendar',
+      redirect_uri=flask.url_for('oauth2callback', _external=True))
+
+  if 'code' not in flask.request.args:
+    auth_uri = flow.step1_get_authorize_url()
+    return flask.redirect(auth_uri)
+  else:
+    auth_code = flask.request.args.get('code')
+    credentials = flow.step2_exchange(auth_code)
+    flask.session['credentials'] = credentials.to_json()
+    return flask.redirect(flask.url_for('finishoauth'))
+
+@webapp.route('/finishoauth')
+def finishoauth():
+  return render_template('finishoauth.html')
+
+# Regular Views
 @webapp.route('/dbdisplay')
 def display():
   return render_template("dbdisplay.html",

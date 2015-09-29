@@ -95,6 +95,12 @@
 * [Python Boilerplate] - Deploy to Heroku section
 * [Getting started with Python in Heroku]
 
+## OAuth on Flask
+* [Using Google OAuth2 on Flask]
+* [OAuth 2.0 overview]
+* [Google API client library python]
+* [Using OAuth2.0 for web application python]
+
 Another new thing I am doing is to paste the references I found right next to the code I wrote down to solve a particular problem. 
 
 [question]: https://www.quora.com/As-a-data-scientist-what-are-the-things-that-I-can-learn-from-full-stack-developers-so-that-I-can-build-interesting-web-applications-for-data-science
@@ -128,3 +134,8 @@ Another new thing I am doing is to paste the references I found right next to th
 
 [Python Boilerplate]: https://github.com/mjhea0/flask-boilerplate
 [Getting started with Python in Heroku]: https://devcenter.heroku.com/articles/getting-started-with-python#next-steps
+
+[Using Google OAuth2 on Flask]: https://github.com/mimming/python-flask-google-api-starter
+[OAuth 2.0 overview]: https://developers.google.com/identity/protocols/OAuth2
+[Google API client library python]: https://developers.google.com/api-client-library/python/guide/aaa_oauth
+[Using OAuth2.0 for web application python]: https://developers.google.com/api-client-library/python/auth/web-app
