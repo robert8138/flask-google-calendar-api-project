@@ -41,11 +41,19 @@ def login():
   if credentials.access_token_expired:
     return flask.redirect(flask.url_for('oauth2callback'))
   else:
+    #os.remove("events.csv")
+    #os.remove("db/events_all_2014.sqlite3")
     http_auth = credentials.authorize(httplib2.Http())
-    calendar_service = discovery.build('calendar', 'v3', http = http_auth)
-    calendars = calendar_service.calendarList().list().execute()
-    calendar_list = [calendar.get('summary') for calendar in calendars['items']]
-    return render_template('login.html', calendar_list = calendar_list)
+    service = discovery.build('calendar', 'v3', http = http_auth)
+    calendarMap = get_calendar_list_map(service)
+    for calendarName in calendarMap:
+        print "processing..." + calendarName + ".........."
+        events_list = get_events_in_calendar(calendarName, calendarMap, service, '2014-01-01')
+        write_events_to_csv(events_list)
+    
+    load_csv_to_db("events.csv")
+
+    return "end of login view"
 
 @webapp.route('/oauth2callback')
 def oauth2callback():
@@ -125,19 +133,19 @@ def plot_d3_calendar():
 
 if __name__ == '__main__':
   
-  EVENTS_CSV_FILE = "events.csv"
-  DB_FILE = "db/events_all_2014.sqlite3"
+  # EVENTS_CSV_FILE = "events.csv"
+  # DB_FILE = "db/events_all_2014.sqlite3"
   
-  if not os.path.exists(EVENTS_CSV_FILE) and not os.path.exists(DB_FILE):
+  # if not os.path.exists(EVENTS_CSV_FILE) and not os.path.exists(DB_FILE):
 
-    service = build_service()
-    calendarMap = get_calendar_list_map(service)
+  #   service = build_service()
+  #   calendarMap = get_calendar_list_map(service)
 
-    for calendarName in calendarMap:
-        events_list = get_events_in_calendar(calendarName, '2014-01-01')
-        write_events_to_csv(events_list)
+  #   for calendarName in calendarMap:
+  #       events_list = get_events_in_calendar(calendarName, service, '2014-01-01')
+  #       write_events_to_csv(events_list)
     
-    load_csv_to_db("events.csv")
+  #   load_csv_to_db("events.csv")
 
   webapp.debug = True
   webapp.run()

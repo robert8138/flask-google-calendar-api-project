@@ -6,7 +6,7 @@ import csv
 
 def load_csv_to_db(CSV_FILE):
   
-  CSV_FILE = 'events.csv'
+  #CSV_FILE = 'events.csv'
   engine = create_engine('sqlite:///db/events_all_2014.sqlite3') # memory-only database
 
   table = None
@@ -20,6 +20,7 @@ def load_csv_to_db(CSV_FILE):
                           delimiter=',')
       print "Ready to write into db..................................."
       for row in cf:
+          print row
           if table is None:
               # create the table
               table = Table('events_full', metadata, 
@@ -41,9 +42,3 @@ def load_csv_to_db(CSV_FILE):
                                 duration = duration, 
                                 event_type = event_type, 
                                 event_name = event_name).execute()
-
-# class CsvTable(object): 
-#     pass
-
-# mapper(CsvTable, table)
-# session = create_session(bind=engine, autocommit=False, autoflush=True)

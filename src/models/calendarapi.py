@@ -110,23 +110,16 @@ def get_calendar_list_map(service):
         calendarMap[summary] = id
     return calendarMap
 
-def get_events_in_calendar(calendarName, startDate, endDate=None):
+def get_events_in_calendar(calendarName, calendarMap, service, startDate, endDate=None):
     """Get all the events in a calendar for a specific time period"""
 
     print '\nGet ' + calendarName + ' Events Since the beginning of the year.............'
     startDate = get_start_date(startDate)
     endDate = get_now_date()
-    service = build_service()
-    calendarMap = get_calendar_list_map(service)
+    # service = build_service()
+    # calendarMap = get_calendar_list_map(service)
     calendarId = calendarMap.get(calendarName)
-    eventsResult = (service.events().list(
-                                        calendarId = calendarId, 
-                                        timeMin = startDate, 
-                                        timeMax = endDate,
-                                        maxResults = 1000, 
-                                        singleEvents = True,
-                                        orderBy = 'startTime')
-                                    .execute())
+    eventsResult = (service.events().list(calendarId = calendarId, timeMin = startDate, timeMax = endDate, maxResults = 1000, singleEvents = True, orderBy = 'startTime').execute())
     
     events = eventsResult.get('items', [])
     events_list = []
@@ -162,7 +155,7 @@ def main():
     calendarMap = get_calendar_list_map(service)
 
     for calendarName in calendarMap:
-        events_list = get_events_in_calendar(calendarName, '2013-01-01')
+        events_list = get_events_in_calendar(calendarName, calendarMap, '2013-01-01')
         write_events_to_csv(events_list)
 
 if __name__ == '__main__':
