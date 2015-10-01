@@ -3,8 +3,17 @@
 ## TODO
 
 * In calendar.html, still need to figure out how to do data.mapValues.max
-* Add OAuth so other people can analyze their own calendar
+* Add OAuth so other people can analyze their own calendar [Almost Done]
 * Deploy the app using Heroku
+
+## OAuth Section - WIP
+* The OAuth flow is still not perfect, I had to always delete events.csv & db/events_all_2014.sqlite3 to restart. The branching logic is still a bit off
+* Right now, calendarMap is being stored as a Python global variable. Not good. I tried using cache, but I couldn't easily loop through a cache.
+* I think an alternative is, in each view, recompute the calendar map by writing a 'select distinct event_type from Events', but I had no success in implementing that yet in '/distinct' view
+* Passing in variables in a template to a included template is free, but you can use { with clause } to make it more explicit
+* I did some jank to convert calendarMap into a json object, so it can be used/passed down in/to .js files
+* I then used JQuery .foreach to create specific d3.select
+* I also remove the handling of white space in /api/event_type calls
 
 ## Project Milestones
 
@@ -51,6 +60,12 @@
     * Create listners (e.g. d3.select.on) that takes in parameters
     * On click, use d3.json to hit my own API endpoints to get data
     * use the data and plot bars and calendars
+
+* **Build OAuth into the app so any authorized Google Calendar can use this app**
+    * Implement OAuth 
+    * Once users grant their consent, the app stores the data into db
+    * Update the front-end code so a list of calendarName would show up
+    * Update the front-end code so that bar chart and calendar chart would still work
 
 ## Review of the Fundamentals of Web Application
 * Python
@@ -101,6 +116,9 @@
 * [Google API client library python]
 * [Using OAuth2.0 for web application python]
 
+## JQuery
+* [Select id with space]
+
 Another new thing I am doing is to paste the references I found right next to the code I wrote down to solve a particular problem. 
 
 [question]: https://www.quora.com/As-a-data-scientist-what-are-the-things-that-I-can-learn-from-full-stack-developers-so-that-I-can-build-interesting-web-applications-for-data-science
@@ -139,3 +157,5 @@ Another new thing I am doing is to paste the references I found right next to th
 [OAuth 2.0 overview]: https://developers.google.com/identity/protocols/OAuth2
 [Google API client library python]: https://developers.google.com/api-client-library/python/guide/aaa_oauth
 [Using OAuth2.0 for web application python]: https://developers.google.com/api-client-library/python/auth/web-app
+
+[Select id with space]: http://stackoverflow.com/questions/596314/jquery-ids-with-spaces

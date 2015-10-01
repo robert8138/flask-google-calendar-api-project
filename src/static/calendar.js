@@ -1,9 +1,6 @@
-d3.select("#study").on("click", function() { make_calendar("studytime"); });
-d3.select("#outsidereading").on("click", function() { make_calendar("outsidereading"); });
-d3.select("#birthday").on("click", function() { make_calendar("birthdays"); });
-d3.select("#misc").on("click", function() { make_calendar("misc"); });
-d3.select("#deadline").on("click", function() { make_calendar("deadline"); });
-d3.select("#exercise").on("click", function() { make_calendar("exercise"); });
+$.each(window.calendarMap, function(k, v) {
+    d3.select("[id='" + k + "']").on("click", function() { make_calendar(k); });
+});
 
 var width = 1000,
     height = 150,

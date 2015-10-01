@@ -1,23 +1,7 @@
-<button type="button" id="study" class="btn btn-default btn-lg">
-  <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Study Time
+{% for calendar in calendarMap %}
+
+<button type="button" id="{{ calendar }}" class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> {{ calendar }}
 </button>
 
-<button type="button" id="outsidereading" class="btn btn-default btn-lg">
-  <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Outside Reading
-</button>
-
-<button type="button" id="birthday" class="btn btn-default btn-lg">
-  <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Birthdays
-</button>
-
-<button type="button" id="exercise" class="btn btn-default btn-lg">
-  <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Exercise
-</button>
-
-<button type="button" id="deadline" class="btn btn-default btn-lg">
-  <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Deadlines
-</button>
-
-<button type="button" id="misc" class="btn btn-default btn-lg">
-  <span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Misc
-</button>
+{% endfor %}

@@ -1,9 +1,6 @@
-d3.select("#study").on("click", function() { make_graph("studytime"); });
-d3.select("#outsidereading").on("click", function() { make_graph("outsidereading"); });
-d3.select("#birthday").on("click", function() { make_graph("birthdays"); });
-d3.select("#misc").on("click", function() { make_graph("misc"); });
-d3.select("#deadline").on("click", function() { make_graph("deadline"); });
-d3.select("#exercise").on("click", function() { make_graph("exercise"); });
+$.each(window.calendarMap, function(k, v) {
+    d3.select("[id='" + k + "']").on("click", function() { make_graph(k); });
+});
 
 var width = 1300,
     height = 250;
@@ -25,9 +22,10 @@ svg.call(tip);
 
 function make_graph(event_type) {
   url = "http://127.0.0.1:5000/api/".concat(event_type)
+  console.log(url)
   d3.json(url, function(error, data) {
     
-    console.log(event_type.concat("is loaded!"))
+    console.log(event_type.concat(" is loaded!"))
     console.log(data['json_list'])
     
     var dataset = data['json_list']

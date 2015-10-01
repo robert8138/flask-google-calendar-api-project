@@ -6,6 +6,7 @@ from apiclient import discovery
 from oauth2client import client
 from flask.ext.cors import CORS
 from oauth2client import client
+from sqlalchemy import * 
 from models.models import *
 from models.calendarapi import *
 from models.loadcsv import *
@@ -22,12 +23,12 @@ webapp.config['SECRET_KEY'] = 'super secret key'
 CORS(webapp)
 db.init_app(webapp)
 
-event_type_map = {'studytime': 'Study Time',
-                  'outsidereading': 'Outside Reading',
-                  'birthdays': 'Birthdays',
-                  'misc': 'Misc',
-                  'deadline': 'Deadline',
-                  'exercise': 'Exercise'}
+# event_type_map = {'studytime': 'Study Time',
+#                   'outsidereading': 'Outside Reading',
+#                   'birthdays': 'Birthdays',
+#                   'misc': 'Misc',
+#                   'deadline': 'Deadline',
+#                   'exercise': 'Exercise'}
 
 @webapp.route('/', methods=['GET','POST'])
 def index():
@@ -41,19 +42,24 @@ def login():
   if credentials.access_token_expired:
     return flask.redirect(flask.url_for('oauth2callback'))
   else:
-    #os.remove("events.csv")
-    #os.remove("db/events_all_2014.sqlite3")
+    if os.path.exists("events.csv") and os.path.exists("db/events_all_2014.sqlite3"):
+      os.remove("events.csv")
+      os.remove("db/events_all_2014.sqlite3")
+    
     http_auth = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http = http_auth)
+    global calendarMap
     calendarMap = get_calendar_list_map(service)
+
     for calendarName in calendarMap:
         print "processing..." + calendarName + ".........."
         events_list = get_events_in_calendar(calendarName, calendarMap, service, '2014-01-01')
         write_events_to_csv(events_list)
     
     load_csv_to_db("events.csv")
+    str = '\n'.join([calendar for calendar in calendarMap])
 
-    return "end of login view"
+    return str
 
 @webapp.route('/oauth2callback')
 def oauth2callback():
@@ -83,7 +89,7 @@ def display():
 
 @webapp.route('/dbdisplay/<event_type>')
 def display_by_event_type(event_type):
-  event_type = event_type_map[event_type]
+  # event_type = event_type_map[event_type]
   return render_template("dbdisplay.html",
                          events = Events.query.filter_by(event_type = event_type).all()) 
 
@@ -98,6 +104,11 @@ def display_duration_greater_than(duration):
   return render_template("dbdisplay.html",
                          events = Events.query.filter(Events.duration > float(duration)).all())
 
+@webapp.route('/distinct')
+def distinct():
+  #TODO: load all the calendarNames from the db using SQLAlchemy
+  return ''.join([event_type for event_type in event_types])
+
 # API endpoints
 @webapp.route('/api/all')
 def api_all():
@@ -106,7 +117,7 @@ def api_all():
 
 @webapp.route('/api/<event_type>')
 def api_by_event_type(event_type):
-  event_type = event_type_map[event_type]
+  # event_type = event_type_map[event_type]
   events = Events.query.filter_by(event_type = event_type).all()
   return jsonify(json_list = [event.serialize for event in events])
 
@@ -124,12 +135,16 @@ def api_by_duration(duration):
 # Plotting endpoints
 @webapp.route('/bars')
 def plot_d3_bars():
-  return render_template("bars.html")
+  return render_template("bars.html", calendarMap = calendarMap)
 
 @webapp.route('/calendar')
 def plot_d3_calendar():
-  return render_template("calendar.html")
+  return render_template("calendar.html", calendarMap = calendarMap)
 
+@webapp.route('/test')
+def test():
+  str = '\n'.join([calendar for calendar in calendarMap])
+  return str
 
 if __name__ == '__main__':
   
@@ -142,7 +157,7 @@ if __name__ == '__main__':
   #   calendarMap = get_calendar_list_map(service)
 
   #   for calendarName in calendarMap:
-  #       events_list = get_events_in_calendar(calendarName, service, '2014-01-01')
+  #       events_list = get_events_in_calendar(calendarName, calendarMap, service, '2014-01-01')
   #       write_events_to_csv(events_list)
     
   #   load_csv_to_db("events.csv")

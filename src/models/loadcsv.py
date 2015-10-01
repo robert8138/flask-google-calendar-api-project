@@ -20,7 +20,6 @@ def load_csv_to_db(CSV_FILE):
                           delimiter=',')
       print "Ready to write into db..................................."
       for row in cf:
-          print row
           if table is None:
               # create the table
               table = Table('events_full', metadata, 
